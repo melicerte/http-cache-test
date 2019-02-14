@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Liste des entités cachées</h1>
+    <ul>
+    {% for entity in entities %}
+        <li>{{ entity.id }} => {{ entity.title }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

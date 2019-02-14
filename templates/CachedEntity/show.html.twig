@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ entity.title }}<br><br>
+    <a href="{{ path(app.request.attributes.get('_route'),
+        app.request.attributes.get('_route_params')) }}">Reload</a>
+{% endblock %}

@@ -1,0 +1,20 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+app.cached_entity_expire:
+  path:     /cachedentity/expire/{id}
+  controller: App\Controller\CachedEntityExpireController::show
+
+app.cached_entity_validation:
+  path:     /cachedentity/validation/{id}
+  controller: App\Controller\CachedEntityValidationController::show
+
+
+app.cached_entity_validation.touch:
+  path:     /cachedentity/validation/{id}/touch
+  controller: App\Controller\CachedEntityValidationController::touch
+
+app.cached_entity.list :
+  path:     /cachedentity/list
+  controller: App\Controller\CachedEntityController::list
