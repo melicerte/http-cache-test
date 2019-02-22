@@ -1,7 +1,22 @@
 fos_http_cache:
+  cache_manager:
+    enabled: true
+    generate_url_type: auto
+  proxy_client:
+    symfony:
+      tags_header: My-Cache-Tags
+      tags_method: TAGPURGE
+      header_length: 1234
+      purge_method: PURGE
+      # for single server installations:
+      # use_kernel_dispatcher: true
+      http:
+        servers:
+          - 127.0.0.1
+        base_url: etienne.httpcache.local
   cache_control:
     defaults:
-      overwrite: true
+      overwrite: false
     rules:
       -
         match:
@@ -15,20 +30,22 @@ fos_http_cache:
         match:
           attributes: { _controller: ^App\\Controller\\CachedEntityExpireController::.* }
         headers:
+          overwrite: true
           cache_control: { public: true, max_age: 15, s_maxage: 30 }
-          last_modified: "-1 hour"
           vary: [Accept-Encoding, Accept-Language]
       -
         match:
-          attributes: { _controller: ^App\\Controller\\CachedEntityValidationController::.* }
+          attributes: { _controller: ^App\\Controller\\CachedEntityValidationController::show }
         headers:
+          overwrite: false
           cache_control: { public: true }
-          etag: true
+          etag: "strong"
           vary: [Accept-Encoding, Accept-Language]
       -
         match:
           attributes: { _controller: ^App\\Controller\\CachedEntityController::.* }
         headers:
-          cache_control: { public: true }
-          etag: true
+          cache_control: { public: true, s_maxage: 3600 }
+          etag: "strong"
+          last_modified: "-1 hour"
           vary: [Accept-Encoding, Accept-Language]

@@ -28,7 +28,7 @@ RUN echo "export PATH=$PATH\":$HOME/bin\"" >> /root/.bashrc
 
 # Put apache config
 COPY build/apache-vhost.conf /etc/apache2/sites-available/custom-vhost.conf
-RUN a2dissite 000-default.conf && a2ensite custom-vhost.conf && a2enmod rewrite
+RUN a2dissite 000-default.conf && a2ensite custom-vhost.conf && a2enmod rewrite && a2enmod headers
 
 # Change uid and gid of apache to docker user uid/gid
 RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
